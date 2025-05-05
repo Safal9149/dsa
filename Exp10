@@ -1,0 +1,97 @@
+//Stack impletention using linked list
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* top = NULL;
+
+void push(int ele){
+    struct Node* temp=(struct Node*)malloc(sizeof(struct Node));
+    if(temp == NULL){
+        printf("Stack Overflow\n");
+    }
+    else{
+        temp->data = ele;
+        temp->next = top;
+        top = temp;
+        printf("Element pushed: %d\n", ele);
+    }
+
+}
+int pop() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return -1;
+    } else {
+        struct Node* temp = top;
+        top = top->next;
+        int ele = temp->data;
+        free(temp);
+        return ele;
+    }
+}
+int peek() {
+    if (top == NULL) {
+        printf("Stack is empty\n");
+        return -1;
+    } else {
+        return top->data;
+    }
+}
+void show(){
+    if(top == NULL){
+        printf("Stack is empty\n");
+    }
+    else{
+        struct Node* temp = top;
+        printf("Stack elements: ");
+        while(temp != NULL){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+
+int main(){
+    while(1){
+        printf("1.Push\n");
+        printf("2.Pop\n");
+        printf("3.Peek\n");
+        printf("4.Display\n");
+        printf("5.Exit\n");
+        int choice, data,res;
+        printf("Enter choice : ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                printf("Enter element to push : ");
+                scanf("%d", &data);
+                push(data);
+                
+            break;
+            case 2:
+                res = pop();
+                if(res != -1){
+                    printf("Element popped: %d\n", res);
+                }
+            break;
+            case 3:
+            res = peek();
+            if(res != -1){
+                printf("Element at top: %d\n", res);
+            }
+            break;
+            case 4:
+                display();
+            break;
+            case 5:
+                exit(0);
+            break;
+            default:
+                printf("Invalid choice\n");
+        }
+    }
+}
